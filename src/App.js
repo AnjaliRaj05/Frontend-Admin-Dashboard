@@ -44,11 +44,13 @@ const App = () => {
     setEditingRow(row);
   };
 
-  const handleSave = (editedData) => {
+  const handleSave = (rowId,editedData) => {
     setData((prevData) =>
-      prevData.map((row) => (row.id === editingRow.id ? { ...row, ...editedData } : row))
-    );
-    setEditingRow(null);
+    prevData.map((row) =>
+      row.id === rowId ? { ...row, ...editedData } : row
+    )
+  );
+  setEditingRow(null);
   };
 
   const handleCancelEdit = () => {
@@ -85,7 +87,9 @@ const App = () => {
       setSelectedRows(data.slice((currentPage - 1) * 10, currentPage * 10));
     }
   };
-
+  const handleDeselectAll = () => {
+    setSelectedRows([]); 
+  };
   const startIndex = (currentPage - 1) * 10;
   const endIndex = startIndex + 10;
   const visibleRows = data
@@ -106,14 +110,18 @@ const App = () => {
         onUpdate={handleUpdate}  
         onDelete={handleDelete}
         onSelect={handleSelect}
+        onSelectAll={handleSelectAll} 
+        onDeselectAll={handleDeselectAll}
+
       />
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
         onSelectAll={handleSelectAll}
+        
       />
-     
+         <p>Selected Rows: {selectedRows.length}</p>
      
     </div>
   );

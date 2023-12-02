@@ -5,21 +5,25 @@ const CustomTable = ({
   data,
   selectedRows,
   editingRow,
+  onSave,
   onEdit,
   onUpdate,
   onCancelEdit,
   onDelete,
   onSelect,
   onSelectAll,
+  onDeselectAll,
+
 }) => {
-
-  
   const isAllRowsSelected = selectedRows.length === data.length;
-
   const handleSelectAll = () => {
-    onSelectAll(!isAllRowsSelected);
+    if (isAllRowsSelected) {
+      onDeselectAll(); 
+    } else {
+      onSelectAll(!isAllRowsSelected);
+    }
   };
-
+  
   const columns = [
     {
       title: (
@@ -97,7 +101,7 @@ const CustomTable = ({
       render: (_, row) => (
         editingRow?.id === row.id ? (
           <>
-            <Button type="primary" onClick={() => onUpdate(row.id)}>Save</Button>
+            <Button type="primary" onClick={() => onSave(row.id)}>Save</Button>
             <Button onClick={onCancelEdit}>Cancel</Button>
           </>
         ) : (
@@ -111,7 +115,10 @@ const CustomTable = ({
   ];
 
   return (
-    
+    <>
+    {/* <Button type="danger" onClick={onDeselectAll}>
+        Deselect All
+      </Button> */}
     <Table
       dataSource={data}
       columns={columns}
@@ -120,6 +127,7 @@ const CustomTable = ({
       className="custom-table"
       rowClassName={(row) => selectedRows.some((selectedRow) => selectedRow.id === row.id) ? 'selected-row' : ''}
     />
+    </>
   );
 };
 
