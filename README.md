@@ -1,6 +1,10 @@
 # Deployement Link 
 [https://656c4514cd95ea63d0633e9e--luminous-choux-371558.netlify.app/](https://656c4514cd95ea63d0633e9e--luminous-choux-371558.netlify.app/)
 
+#UI Layout
+![Screenshot (1175)](https://github.com/AnjaliRaj05/HireQuotient-Assignment2-Dashboard/assets/92683584/2e64a57a-fe77-4aa2-b01b-43c025738e33)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
