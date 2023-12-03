@@ -7,7 +7,7 @@ const CustomPagination = ({ currentPage, totalPages, onPageChange, onSelectAll }
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="pagination" style={{textAlign:'center', marginTop: '15px'}} >
+    <div className="pagination" style={{textAlign:'center', marginTop: '1px'}} >
       
       <Pagination
         current={currentPage}
@@ -17,11 +17,11 @@ const CustomPagination = ({ currentPage, totalPages, onPageChange, onSelectAll }
         showQuickJumper={false}
         showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
       />
-      <button className="first-page" onClick={() => onPageChange(1)}>First</button>
+      {/* <button className="first-page" onClick={() => onPageChange(1)}>First</button>
       <button className="previous-page" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
       <button className="next-page" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
       <button className="last-page" onClick={() => onPageChange(totalPages)}>Last</button>
-      <button className="select-all" onClick={onSelectAll}>Select All</button>
+      <button className="select-all" onClick={onSelectAll}>Select All</button> */}
     </div>
   );
 };

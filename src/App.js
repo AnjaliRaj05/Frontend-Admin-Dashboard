@@ -126,6 +126,7 @@ const App = () => {
         onDeselectAll={handleDeselectAll}
 
       />
+       <p>Selected Rows: {selectedRows.length}</p>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
@@ -133,7 +134,7 @@ const App = () => {
         onSelectAll={handleSelectAll}
         
       />
-         <p>Selected Rows: {selectedRows.length}</p>
+        
      
     </div>
   );

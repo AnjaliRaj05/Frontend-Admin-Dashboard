@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
-    height: 80px;
+    height: 70px;
     
 }
 h1{
@@ -35,6 +35,5 @@ button{
     display: flex;
     justify-content: space-between;
     align-items: center;
-  
   
 }
