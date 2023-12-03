@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchBar from './components/SearchBar';
+import { DeleteOutlined } from '@ant-design/icons';
+
 import CustomTable from './components/CustomTable';
 import Pagination from './components/Pagination';
 
@@ -14,7 +15,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRows, setSelectedRows] = useState([]);
   const [editingRow, setEditingRow] = useState(null);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,6 +88,11 @@ const App = () => {
       setSelectedRows(data.slice((currentPage - 1) * 10, currentPage * 10));
     }
   };
+  const handleDeleteSelected = () => {
+    selectedRows.forEach((row) => {
+      handleDelete(row.id);
+    });
+  };
   const handleDeselectAll = () => {
     setSelectedRows([]); 
   };
@@ -99,7 +105,13 @@ const App = () => {
   return (
     
     <div className="admin-dashboard">
-       <Navbar onSearch={handleSearch}/>
+       <Navbar onSearch={handleSearch}/> 
+
+       <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px',marginRight:'300px' }}>
+        <button  style={{fontColor:'red'}} onClick={handleDeleteSelected}>
+          <DeleteOutlined style={{  color: 'red',fontWeight:'bold',fontSize:'20px' }} />
+        </button>
+      </div>
       <CustomTable
         data={visibleRows}
         selectedRows={selectedRows}

@@ -1,5 +1,5 @@
 import './style.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Checkbox, Input, Button } from 'antd';
 const CustomTable = ({
   data,
@@ -15,6 +15,7 @@ const CustomTable = ({
   onDeselectAll,
 
 }) => {
+  const [localChanges, setLocalChanges] = useState({});
   const isAllRowsSelected = selectedRows.length === data.length;
   const handleSelectAll = () => {
     if (isAllRowsSelected) {
@@ -23,7 +24,22 @@ const CustomTable = ({
       onSelectAll(!isAllRowsSelected);
     }
   };
-  
+  const onUpdateLocalChanges = (id, updatedData) => {
+    setLocalChanges((prevChanges) => ({
+      ...prevChanges,
+      [id]: {
+        ...prevChanges[id],
+        ...updatedData,
+      },
+    }));
+  };
+  const handleSave = (id) => {
+    onSave(id, localChanges[id]);
+    setLocalChanges((prevChanges) => {
+      const { [id]: _, ...rest } = prevChanges;
+      return rest;
+    });
+  };
   const columns = [
     {
       title: (
@@ -63,7 +79,8 @@ const CustomTable = ({
       render: (text, row) => (
         <>
           {editingRow?.id === row.id ? (
-            <Input value={text} onChange={(e) => onUpdate(row.id, { name: e.target.value })} />
+            <Input value={localChanges[row.id]?.name ?? text}
+            onChange={(e) => onUpdateLocalChanges(row.id, { name: e.target.value })} />
           ) : (
             text
           )}
@@ -77,7 +94,7 @@ const CustomTable = ({
       key: 'email',
       render: (text, row) => (
         editingRow?.id === row.id ? (
-          <Input value={text} onChange={(e) => onUpdate(row.id, { email: e.target.value })} />
+          <Input value={localChanges[row.id]?.email ?? text} onChange={(e) => onUpdateLocalChanges(row.id, { email: e.target.value })} />
         ) : (
           text
         )
@@ -89,7 +106,7 @@ const CustomTable = ({
       key: 'role',
       render: (text, row) => (
         editingRow?.id === row.id ? (
-          <Input value={text} onChange={(e) => onUpdate(row.id, { role: e.target.value })} />
+          <Input value={localChanges[row.id]?.role ?? text} onChange={(e) => onUpdateLocalChanges(row.id, { role: e.target.value })} />
         ) : (
           text
         )
@@ -101,7 +118,7 @@ const CustomTable = ({
       render: (_, row) => (
         editingRow?.id === row.id ? (
           <>
-            <Button type="primary" onClick={() => onSave(row.id)}>Save</Button>
+            <Button type="primary" onClick={() => handleSave(row.id)}>Save</Button>
             <Button onClick={onCancelEdit}>Cancel</Button>
           </>
         ) : (
